@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    environment {
-    DOCKER_IMAGE_NAME = "mohdaslam/bulletin-board"
-   }
     stages {
         stage('Build') {
             steps {
@@ -71,10 +68,10 @@ pipeline {
                         } catch (err) {
                             echo: 'caught error: $err'
                         }
-                        sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$docker_server \"docker run --restart always --name train-schedule -p 8080:8080 -d mohdaslam/bulletin-board:${env.BUILD_NUMBER}\""
+                        sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$docker_server \"docker run --restart always --name bulletin-board -p 8080:8080 -d mohdaslam/bulletin-board:${env.BUILD_NUMBER}\""
                     }
                 }
             }
         }
     }
-}v
+}
